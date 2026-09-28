@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pra onde foi meu dinheiro?</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <header class="topo">
+        <h1>Pra onde foi meu dinheiro?</h1>
+        <p>Registre seus gastos e descubra.</p>
+    </header>
+
+    <main class="painel">
+
+        <section class="cartao novo-gasto">
+            <h2>Novo gasto</h2>
+
+            <form class="formulario">
+                <p>
+                    <label for="descricao">Descrição</label>
+                    <input type="text" id="descricao" class="campo-descricao" placeholder="Ex.: lanche">
+                </p>
+
+                <p>
+                    <label for="valor">Valor (R$)</label>
+                    <input type="number" id="valor" class="campo-valor" step="0.01" placeholder="Ex.: 12.50">
+                </p>
+
+                <button type="submit">Adicionar</button>
+
+                <p class="erro"></p>
+            </form>
+        </section>
+
+        <section class="cartao resumo">
+            <h2>Resumo</h2>
+
+            <div class="indicadores">
+                <div class="indicador">
+                    <span class="rotulo">Total gasto</span>
+                    <strong class="total">R$ 0,00</strong>
+                </div>
+
+                <div class="indicador">
+                    <span class="rotulo">Gastos registrados</span>
+                    <strong class="quantidade">0</strong>
+                </div>
+
+                <div class="indicador">
+                    <span class="rotulo">Média por gasto</span>
+                    <strong class="media">R$ 0,00</strong>
+                </div>
+
+                <div class="indicador">
+                    <span class="rotulo">Maior gasto</span>
+                    <strong class="maior">—</strong>
+                </div>
+            </div>
+
+            <div class="orcamento">
+                <span class="rotulo">Orçamento da semana: R$ 50,00</span>
+                <strong class="restante">R$ 50,00 disponíveis</strong>
+            </div>
+        </section>
+
+        <section class="cartao historico-cartao">
+            <h2>Histórico</h2>
+            <p class="historico">Nenhum gasto ainda.</p>
+        </section>
+
+    </main>
+
+</body>
+
+</html>

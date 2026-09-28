@@ -1,0 +1,207 @@
+/* ===========================================================
+   Pra onde foi meu dinheiro?
+   =========================================================== */
+
+* {
+    box-sizing: border-box;
+}
+
+html {
+    background-color: #eef1ee;
+}
+
+body {
+    margin: 0;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    font-size: 16px;
+    line-height: 1.5;
+    color: #26302a;
+}
+
+
+/* -----------------------------------------------------------
+   Topo
+   ----------------------------------------------------------- */
+
+.topo {
+    padding: 28px 20px;
+    background-color: #1f3a2e;
+    color: #ffffff;
+    text-align: center;
+}
+
+.topo h1 {
+    margin: 0;
+    font-size: 26px;
+}
+
+.topo p {
+    margin: 6px 0 0 0;
+    color: #b9d3c4;
+}
+
+
+/* -----------------------------------------------------------
+   Painel — celular primeiro
+   ----------------------------------------------------------- */
+
+.painel {
+    display: grid;
+    gap: 16px;
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 20px;
+
+    grid-template-areas:
+        "novo"
+        "resumo"
+        "historico";
+}
+
+.novo-gasto       { grid-area: novo; }
+.resumo           { grid-area: resumo; }
+.historico-cartao { grid-area: historico; }
+
+.cartao {
+    padding: 4px 20px 20px 20px;
+    border-radius: 8px;
+    background-color: #ffffff;
+    border: 1px solid #d9e2dc;
+}
+
+.cartao h2 {
+    font-size: 18px;
+    color: #1f3a2e;
+}
+
+
+/* -----------------------------------------------------------
+   Formulário
+   ----------------------------------------------------------- */
+
+.formulario p {
+    margin: 0 0 14px 0;
+}
+
+label {
+    display: block;
+    margin-bottom: 4px;
+    font-size: 14px;
+    font-weight: bold;
+}
+
+input {
+    width: 100%;
+    padding: 10px 12px;
+    border: 1px solid #c3cfc7;
+    border-radius: 6px;
+    font-family: inherit;
+    font-size: 16px;
+}
+
+button {
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 6px;
+    background-color: #2f6b4f;
+    color: #ffffff;
+    font-family: inherit;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #25563f;
+}
+
+.erro {
+    margin: 12px 0 0 0;
+    color: #b3261e;
+    font-weight: bold;
+}
+
+
+/* -----------------------------------------------------------
+   Resumo
+   ----------------------------------------------------------- */
+
+.indicadores {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+}
+
+.indicador {
+    padding: 12px 14px;
+    border-radius: 6px;
+    background-color: #f2f6f3;
+}
+
+.rotulo {
+    display: block;
+    font-size: 13px;
+    color: #5f6e64;
+}
+
+.indicador strong {
+    display: block;
+    margin-top: 2px;
+    font-size: 20px;
+    color: #1f3a2e;
+}
+
+
+/* -----------------------------------------------------------
+   Orçamento
+   ----------------------------------------------------------- */
+
+.orcamento {
+    margin-top: 12px;
+    padding: 12px 14px;
+    border-radius: 6px;
+    border: 1px dashed #b7c7bd;
+}
+
+.orcamento strong {
+    display: block;
+    margin-top: 2px;
+    font-size: 18px;
+    color: #1f3a2e;
+}
+
+/* Quando o total passa do orçamento. */
+.indicador strong.estourado,
+.orcamento strong.estourado {
+    color: #b3261e;
+}
+
+
+/* -----------------------------------------------------------
+   Histórico
+   ----------------------------------------------------------- */
+
+.historico {
+    margin: 0;
+    color: #3c4a41;
+
+    /* Faz o \n dentro do texto virar quebra de linha na tela. */
+    white-space: pre-line;
+}
+
+
+/* -----------------------------------------------------------
+   A partir de 800px: formulário e resumo lado a lado
+   ----------------------------------------------------------- */
+
+@media (min-width: 800px) {
+
+    .painel {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "novo      resumo"
+            "historico historico";
+    }
+
+}
