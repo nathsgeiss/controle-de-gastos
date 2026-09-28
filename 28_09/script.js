@@ -18,7 +18,9 @@ const erro = document.querySelector('.erro');
 const telaTotal = document.querySelector('.total');
 const telaMaior = document.querySelector('.maior');
 
-
+const quantidade = document.querySelector('.quantidade');
+const media = document.querySelector('.media');
+const historico = document.querySelector('.historico');
 /* -----------------------------------------------------------
    O que o programa precisa lembrar entre um gasto e outro.
 
@@ -29,7 +31,9 @@ const telaMaior = document.querySelector('.maior');
 let total = 0;
 let maiorValor = 0;
 let maiorDescricao = '';
-
+let gastosRegistrados = 0;
+let mediaGastos = 0;
+let txt = '';
 
 /* -----------------------------------------------------------
    Escutar e alterar
@@ -61,6 +65,14 @@ formulario.addEventListener('submit', function (evento) {
         // o total
         total = total + valor;
 
+        gastosRegistrados = gastosRegistrados + 1;
+        //ou gastosRegistrados++;
+        //ou gastorsRegistrados += 1;
+
+        mediaGastos = total / gastosRegistrados
+
+        txt = txt + descricao + ' — R$ ' + valor.toFixed(2).replace('.', ',') + '\n';
+
         // o maior gasto
         /* Se o maior mudou, a descrição muda junto.
            Com > (e não >=), em caso de empate fica o
@@ -73,6 +85,9 @@ formulario.addEventListener('submit', function (evento) {
         // mostrar na tela
         telaTotal.textContent = 'R$ ' + total.toFixed(2).replace('.', ',');
         telaMaior.textContent = maiorDescricao + ' — R$ ' + maiorValor.toFixed(2).replace('.', ',');
+        quantidade.textContent = gastosRegistrados;
+        media.textContent = 'R$ ' + mediaGastos;
+        historico.textContent = txt;
 
         // limpar para o próximo
         campoDescricao.value = '';
