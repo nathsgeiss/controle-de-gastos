@@ -21,6 +21,8 @@ const telaMaior = document.querySelector('.maior');
 const quantidade = document.querySelector('.quantidade');
 const media = document.querySelector('.media');
 const historico = document.querySelector('.historico');
+const restante = document.querySelector('.restante');
+
 /* -----------------------------------------------------------
    O que o programa precisa lembrar entre um gasto e outro.
 
@@ -88,6 +90,20 @@ formulario.addEventListener('submit', function (evento) {
         quantidade.textContent = gastosRegistrados;
         media.textContent = 'R$ ' + mediaGastos;
         historico.textContent = txt;
+        restante.textContent = `R$ ${(50-total).toFixed(2).replace('.', ',')} disponíveis`;
+
+        if ((50-total) < 0){
+         console.log("entrou no if da linha 98");
+         restante.classList.add ("estourado");
+         // Transforma o valor negativo em positivo e muda o texto
+            let valorPassou = (50-total) * -1;
+            restante.textContent = `Passou R$ ${valorPassou.toFixed(2).replace('.', ',')} do orçamento`;
+        }
+
+        if (total > 50){
+         console.log("entra no if da linha 103");
+         telaTotal.classList.add ("estourado");
+        }
 
         // limpar para o próximo
         campoDescricao.value = '';
