@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Racha a conta</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <main class="pagina">
+        <h1>Racha a conta</h1>
+
+        <form class="formulario">
+            <div class="campos">
+                <p>
+                    <label for="conta">Valor da conta (R$)</label>
+                    <input type="number" id="conta" class="campo-conta" step="0.01">
+                </p>
+                <p>
+                    <label for="pessoas">Quantas pessoas?</label>
+                    <input type="number" id="pessoas" class="campo-pessoas">
+                </p>
+            </div>
+
+            <button type="submit">Calcular</button>
+            <p class="erro"></p>
+        </form>
+
+        <section class="resultados">
+            <h2>Quanto cada um paga</h2>
+
+            <div class="cenarios">
+
+                <div class="cenario">
+                    <h3>Sem gorjeta</h3>
+                    <p>
+                        <span>Total</span>
+                        <strong class="total-0">R$ 0,00</strong>
+                    </p>
+                    <p class="por-pessoa">
+                        <span>Cada um paga</span>
+                        <strong class="pessoa-0">R$ 0,00</strong>
+                    </p>
+                </div>
+
+                <div class="cenario">
+                    <h3>Gorjeta de 10%</h3>
+                    <p>
+                        <span>Total</span>
+                        <strong class="total-10">R$ 0,00</strong>
+                    </p>
+                    <p class="por-pessoa">
+                        <span>Cada um paga</span>
+                        <strong class="pessoa-10">R$ 0,00</strong>
+                    </p>
+                </div>
+
+                <div class="cenario">
+                    <h3>Gorjeta de 15%</h3>
+                    <p>
+                        <span>Total</span>
+                        <strong class="total-15">R$ 0,00</strong>
+                    </p>
+                    <p class="por-pessoa">
+                        <span>Cada um paga</span>
+                        <strong class="pessoa-15">R$ 0,00</strong>
+                    </p>
+                </div>
+
+            </div>
+        </section>
+    </main>
+
+</body>
+
+</html>

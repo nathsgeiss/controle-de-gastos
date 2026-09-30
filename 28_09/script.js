@@ -9,6 +9,15 @@
 /* -----------------------------------------------------------
    Selecionar
    ----------------------------------------------------------- */
+function formatarReais(valor) { // lowerCamelCase
+    // return 'R$ ' + valor.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    console.log(`valor: ${valor}`);
+    return 'R$ ' + valor.toFixed(2).replace('.', ',');
+}
+
+function calcularMedia(valorTotal, quantidade){
+   return valorTotal / quantidade;
+}
 
 const formulario = document.querySelector('.formulario');
 const campoDescricao = document.querySelector('.campo-descricao');
@@ -71,9 +80,10 @@ formulario.addEventListener('submit', function (evento) {
         //ou gastosRegistrados++;
         //ou gastorsRegistrados += 1;
 
-        mediaGastos = total / gastosRegistrados
+        //mediaGastos = total / gastosRegistrados
 
-        txt = txt + descricao + ' — R$ ' + valor.toFixed(2).replace('.', ',') + '\n';
+
+        txt = txt + descricao + formatarReais(valor) + '\n';
 
         // o maior gasto
         /* Se o maior mudou, a descrição muda junto.
@@ -85,10 +95,10 @@ formulario.addEventListener('submit', function (evento) {
         }
 
         // mostrar na tela
-        telaTotal.textContent = 'R$ ' + total.toFixed(2).replace('.', ',');
-        telaMaior.textContent = maiorDescricao + ' — R$ ' + maiorValor.toFixed(2).replace('.', ',');
+        telaTotal.textContent = formatarReais(total);
+        telaMaior.textContent = maiorDescricao + formatarReais(maiorValor);
         quantidade.textContent = gastosRegistrados;
-        media.textContent = 'R$ ' + mediaGastos;
+        media.textContent = formatarReais(calcularMedia(total, gastosRegistrados));
         historico.textContent = txt;
         restante.textContent = `R$ ${(50-total).toFixed(2).replace('.', ',')} disponíveis`;
 
