@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bilheteria</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="script.js" defer></script>
+</head>
+
+<body>
+
+    <main class="bilheteria">
+
+        <header class="cartaz">
+            <p class="sessao">Hoje · 19h · Sala 2</p>
+            <h1 class="titulo-filme">Duna: Parte Dois</h1>
+            <p class="detalhes">
+                <span class="classificacao-filme">14</span>
+                <span class="detalhes-filme">Ficção científica · 2h46 · Legendado</span>
+            </p>
+            <p class="preco">Inteira: <strong class="preco-filme">R$ 32,00</strong></p>
+        </header>
+
+        <form class="formulario">
+            <p>
+                <label for="nome">Nome</label>
+                <input type="text" id="nome" class="campo-nome">
+            </p>
+
+            <p>
+                <label for="idade">Idade</label>
+                <input type="number" id="idade" class="campo-idade">
+            </p>
+
+            <p class="rotulo">Documento de meia-entrada</p>
+            <p class="opcao">
+                <input type="radio" id="nenhum" name="documento" value="nenhum" checked>
+                <label for="nenhum">Nenhum</label>
+            </p>
+            <p class="opcao">
+                <input type="radio" id="estudante" name="documento" value="estudante">
+                <label for="estudante">Carteira de estudante</label>
+            </p>
+            <p class="opcao">
+                <input type="radio" id="professor" name="documento" value="professor">
+                <label for="professor">Professor</label>
+            </p>
+
+            <button type="submit" class="botao-comprar">Comprar ingresso</button>
+            <p class="erro"></p>
+        </form>
+
+        <section class="vendas">
+            <h2>Último ingresso</h2>
+            <p class="ingresso">Nenhum ingresso vendido ainda.</p>
+
+            <div class="placar">
+                <p>Vendidos <strong class="vendidos">0</strong></p>
+                <p>Arrecadado <strong class="arrecadado">R$ 0,00</strong></p>
+            </div>
+        </section>
+
+    </main>
+
+</body>
+
+</html>

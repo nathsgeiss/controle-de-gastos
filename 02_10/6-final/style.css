@@ -1,0 +1,226 @@
+:root {
+    --cor-fundo: #14161f;
+    --cor-cartao: #1f2230;
+    --cor-texto: #eceaf2;
+    --cor-suave: #9a98a8;
+    --cor-destaque: #f2b632;
+    --cor-alerta: #ff7a6b;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 32px 16px;
+    background-color: var(--cor-fundo);
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    color: var(--cor-texto);
+}
+
+.bilheteria {
+    display: grid;
+    gap: 16px;
+    max-width: 880px;
+    margin: 0 auto;
+}
+
+
+/* Cartaz */
+
+.cartaz {
+    padding: 20px;
+    border-left: 6px solid var(--cor-destaque);
+    background-color: var(--cor-cartao);
+}
+
+.sessao {
+    margin: 0;
+    color: var(--cor-suave);
+    text-transform: uppercase;
+    font-size: 13px;
+    letter-spacing: 1px;
+}
+
+.titulo-filme {
+    margin: 4px 0 12px 0;
+    font-size: 30px;
+}
+
+.detalhes {
+    margin: 0;
+    color: var(--cor-suave);
+}
+
+.preco {
+    margin: 8px 0 0 0;
+}
+
+.vendas-filme {
+    margin: 8px 0 0 0;
+    color: var(--cor-destaque);
+    font-size: 14px;
+}
+
+.classificacao-filme {
+    display: inline-block;
+    margin-right: 8px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    background-color: #e0731f;
+    color: #ffffff;
+    font-weight: bold;
+}
+
+
+/* Formulário */
+
+.formulario,
+.vendas {
+    padding: 20px;
+    border-radius: 6px;
+    background-color: var(--cor-cartao);
+}
+
+.formulario p {
+    margin: 0 0 14px 0;
+}
+
+label,
+.rotulo {
+    display: block;
+    margin-bottom: 4px;
+    font-weight: bold;
+}
+
+input[type="text"],
+input[type="number"],
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #3a3e52;
+    border-radius: 4px;
+    background-color: var(--cor-fundo);
+    color: var(--cor-texto);
+    font-size: 16px;
+}
+
+.formulario .opcao {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 8px;
+}
+
+/* Cada opção é um cartão... */
+.opcao label {
+    flex-grow: 1;
+    margin: 0;
+    padding: 8px 12px;
+    border: 1px solid #3a3e52;
+    border-radius: 4px;
+    font-weight: normal;
+    cursor: pointer;
+}
+
+/* ...que acende quando o radio logo antes dele está marcado.
+   O + seleciona o elemento que vem logo depois. */
+input:checked + label {
+    border-color: var(--cor-destaque);
+    color: var(--cor-destaque);
+    font-weight: bold;
+}
+
+button {
+    width: 100%;
+    margin-top: 8px;
+    padding: 12px;
+    border: none;
+    border-radius: 4px;
+    background-color: var(--cor-destaque);
+    color: var(--cor-fundo);
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+/* Pseudo-classes: o estado do elemento, não o elemento */
+
+button:hover {
+    background-color: #ffc94d;
+}
+
+/* Depois do :hover, para ganhar dele quando os dois valem */
+button:disabled {
+    background-color: #4a4d5e;
+    color: var(--cor-suave);
+    cursor: not-allowed;
+}
+
+input:focus-visible,
+select:focus-visible,
+button:focus-visible {
+    outline: 3px solid var(--cor-destaque);
+    outline-offset: 2px;
+}
+
+.erro {
+    color: var(--cor-alerta);
+    font-weight: bold;
+}
+
+
+/* Vendas */
+
+.vendas h2 {
+    margin-top: 0;
+    font-size: 18px;
+    color: var(--cor-suave);
+}
+
+.ingresso {
+    padding: 16px;
+    border: 2px dashed var(--cor-destaque);
+    border-radius: 6px;
+    font-size: 18px;
+}
+
+.ingresso.recusado {
+    border-color: var(--cor-alerta);
+    color: var(--cor-alerta);
+}
+
+.placar {
+    display: flex;
+    gap: 24px;
+}
+
+.placar p {
+    margin: 0;
+    color: var(--cor-suave);
+}
+
+.placar strong {
+    display: block;
+    font-size: 22px;
+    color: var(--cor-texto);
+}
+
+
+/* A partir de 800px: formulário e vendas lado a lado */
+
+@media (min-width: 800px) {
+
+    .bilheteria {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "cartaz     cartaz"
+            "formulario vendas";
+    }
+
+    .cartaz     { grid-area: cartaz; }
+    .formulario { grid-area: formulario; }
+    .vendas     { grid-area: vendas; }
+
+}
