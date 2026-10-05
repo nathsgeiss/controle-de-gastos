@@ -32,10 +32,26 @@
                     <input type="number" id="valor" class="campo-valor" step="0.01" placeholder="Ex.: 12.50">
                 </p>
 
+                <!-- NOVO: Campo para seleção da categoria -->
+                <p>
+                    <label for="categoria">Categoria</label>
+                    <select id="categoria" class="campo-categoria">
+                        <!-- As opções serão preenchidas dinamicamente pelo JavaScript -->
+                    </select>
+                </p>
+
                 <button type="submit">Adicionar</button>
 
                 <p class="erro"></p>
             </form>
+        </section>
+
+        <!-- NOVO: Cartão "Por categoria" para exibir os totais -->
+        <section class="cartao por-categoria">
+            <h2>Por categoria</h2>
+            <div class="lista-categorias">
+                <!-- A tabela/lista de totais por categoria será gerada dinamicamente pelo JavaScript -->
+            </div>
         </section>
 
         <section class="cartao resumo">

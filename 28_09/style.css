@@ -218,3 +218,37 @@ button:disabled {
 button:disabled:hover {
     background-color: #ccc;
 }
+
+/* Estilo do campo de seleção de categoria */
+.campo-categoria {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    box-sizing: border-box;
+}
+
+/* Estilo da tabela do cartão "Por categoria" */
+.tabela-categorias {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 8px;
+}
+
+.tabela-categorias th,
+.tabela-categorias td {
+    padding: 8px 0;
+    text-align: left;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.tabela-categorias th {
+    font-weight: bold;
+    color: #888;
+}
+
+.tabela-categorias td:last-child,
+.tabela-categorias th:last-child {
+    text-align: right;
+}
