@@ -1,0 +1,105 @@
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    padding: 16px;
+    font-family: Arial, sans-serif;
+    background-color: #f4f6fb;
+    color: #222b45;
+}
+
+.boletim {
+    display: grid;
+    gap: 12px;
+    max-width: 960px;
+    margin: 0 auto;
+    grid-template-areas:
+        "topo"
+        "formulario"
+        "resumo"
+        "notas";
+}
+
+.topo       { grid-area: topo; }
+.formulario { grid-area: formulario; }
+.resumo     { grid-area: resumo; }
+.notas      { grid-area: notas; }
+
+.formulario,
+.resumo,
+.notas {
+    padding: 16px;
+    border: 1px solid #c5cee0;
+    border-radius: 8px;
+    background-color: #ffffff;
+}
+
+h1 {
+    margin: 0;
+}
+
+h2 {
+    margin-top: 0;
+    font-size: 18px;
+}
+
+label {
+    display: block;
+}
+
+input {
+    width: 100%;
+    padding: 8px;
+}
+
+
+/* ----- A tabela ----- */
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+caption {
+    padding-bottom: 8px;
+    font-weight: bold;
+    text-align: left;
+}
+
+th,
+td {
+    padding: 8px;
+    border-bottom: 1px solid #e4e9f2;
+    text-align: left;
+}
+
+/* O cabeçalho com um fundo diferente */
+thead th {
+    background-color: #e4e9f2;
+}
+
+/* Linhas zebradas, só no corpo da tabela */
+tbody tr:nth-child(even) {
+    background-color: #f7f9fc;
+}
+
+tfoot th,
+tfoot td {
+    border-top: 2px solid #222b45;
+    font-weight: bold;
+}
+
+
+@media (min-width: 800px) {
+
+    .boletim {
+        grid-template-columns: 1fr 1fr;
+        grid-template-areas:
+            "topo       topo"
+            "formulario notas"
+            "resumo     notas";
+    }
+
+}
