@@ -1,5 +1,5 @@
 /* ===========================================================
-   Pra onde foi meu dinheiro? — Parte 1
+   Pra onde foi meu dinheiro? — Parte 2 (Com Tabela de Histórico)
    =========================================================== */
 
 /* -----------------------------------------------------------
@@ -11,13 +11,6 @@ const categorias = [
     { nome: 'Lazer', total: 0 }
 ];
 
-let total = 0;
-let maiorGasto = {
-    descricao: '',
-    valor: 0
-};
-
-// Passo 1: Criando a lista vazia 'gastos' (substitui a variável 'txt' antiga)
 let gastos = [];
 
 /* -----------------------------------------------------------
@@ -27,11 +20,13 @@ const formulario = document.querySelector('.formulario');
 const campoDescricao = document.querySelector('.campo-descricao');
 const campoValor = document.querySelector('.campo-valor');
 const campoCategoria = document.querySelector('.campo-categoria');
-const botaoAdicionar = document.querySelector('.formulario button');
+const botaoAdicionar = document.querySelector('.formulario button[type="submit"]');
+const botaoDesfazer = document.querySelector('.botao-desfazer');
 const erro = document.querySelector('.erro');
 
 const telaTotal = document.querySelector('.total');
 const telaMaior = document.querySelector('.maior');
+const telaMenor = document.querySelector('.menor');
 const quantidade = document.querySelector('.quantidade');
 const media = document.querySelector('.media');
 const historico = document.querySelector('.historico');
@@ -39,7 +34,7 @@ const restante = document.querySelector('.restante');
 const listaCategorias = document.querySelector('.lista-categorias');
 
 /* -----------------------------------------------------------
-   Funções Auxiliares
+   Funções Auxiliares de Cálculo
    ----------------------------------------------------------- */
 function formatarReais(valor) {
     return 'R$ ' + valor.toFixed(2).replace('.', ',');
@@ -50,23 +45,90 @@ function calcularMedia(valorTotal, qtd) {
     return valorTotal / qtd;
 }
 
-function montarTextoDoGasto(gasto) {
-    return `${gasto.descricao} — ${formatarReais(gasto.valor)}`;
-}
-
-function montarMensagemDoOrcamento(restante) {
-    if (restante >= 0) {
-        return formatarReais(restante) + ' disponíveis';
-    }
-    return 'Passou ' + formatarReais(-restante) + ' do orçamento';
-}
-
 function podeAdicionar(descricao, valor) {
     return descricao.trim() !== '' && valor !== '';
 }
 
+function calcularTotal(listaGastos) {
+    let soma = 0;
+    for (let i = 0; i < listaGastos.length; i++) {
+        soma = soma + listaGastos[i].valor;
+    }
+    return soma;
+}
+
+function calcularMaiorGasto(listaGastos) {
+    if (listaGastos.length === 0) return null;
+    let maior = listaGastos[0];
+    for (let i = 1; i < listaGastos.length; i++) {
+        if (listaGastos[i].valor > maior.valor) {
+            maior = listaGastos[i];
+        }
+    }
+    return maior;
+}
+
+function calcularMenorGasto(listaGastos) {
+    if (listaGastos.length === 0) return null;
+    let menor = listaGastos[0];
+    for (let i = 1; i < listaGastos.length; i++) {
+        if (listaGastos[i].valor < menor.valor) {
+            menor = listaGastos[i];
+        }
+    }
+    return menor;
+}
+
 /* -----------------------------------------------------------
-   Funções de Categorias
+   Funções para o Histórico em Tabela (Passo 5)
+   ----------------------------------------------------------- */
+function montarLinhasDaTabela(listaGastos) {
+    let linhas = '';
+    for (let i = 0; i < listaGastos.length; i++) {
+        linhas += `
+            <tr>
+                <td>${i + 1}</td>
+                <td>${listaGastos[i].descricao}</td>
+                <td>${formatarReais(listaGastos[i].valor)}</td>
+            </tr>`;
+    }
+    return linhas;
+}
+
+function atualizarTabelaHistorico() {
+    if (gastos.length === 0) {
+        historico.innerHTML = 'Nenhum gasto ainda.';
+        return;
+    }
+
+    const totalGeral = calcularTotal(gastos);
+
+    let conteudoTabela = `
+        <table>
+            <caption>Histórico de gastos</caption>
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Descrição</th>
+                    <th>Valor</th>
+                </tr>
+            </thead>
+            <tbody>
+                ${montarLinhasDaTabela(gastos)}
+            </tbody>
+            <tfoot>
+                <tr>
+                    <td colspan="2">Total</td>
+                    <td>${formatarReais(totalGeral)}</td>
+                </tr>
+            </tfoot>
+        </table>
+    `;
+    historico.innerHTML = conteudoTabela;
+}
+
+/* -----------------------------------------------------------
+   Funções de Categorias e Renderização Geral
    ----------------------------------------------------------- */
 function preencherOpcoesCategorias() {
     campoCategoria.innerHTML = '';
@@ -95,10 +157,17 @@ function mostrarTotaisPorCategoria() {
     `;
 
     categorias.forEach(cat => {
+        let totalCat = 0;
+        gastos.forEach(g => {
+            if (g.categoria === cat.nome) {
+                totalCat += g.valor;
+            }
+        });
+
         conteudo += `
             <tr>
                 <td>${cat.nome}</td>
-                <td>${formatarReais(cat.total)}</td>
+                <td>${formatarReais(totalCat)}</td>
             </tr>
         `;
     });
@@ -108,8 +177,57 @@ function mostrarTotaisPorCategoria() {
     listaCategorias.appendChild(tabela);
 }
 
+function atualizarInterface() {
+    atualizarTabelaHistorico();
+
+    const totalGeral = calcularTotal(gastos);
+    const maior = calcularMaiorGasto(gastos);
+    const menor = calcularMenorGasto(gastos);
+
+    telaTotal.textContent = formatarReais(totalGeral);
+    
+    if (maior) {
+        telaMaior.textContent = `${maior.descricao} — ${formatarReais(maior.valor)}`;
+    } else {
+        telaMaior.textContent = '—';
+    }
+
+    if (menor && telaMenor) {
+        telaMenor.textContent = `${menor.descricao} — ${formatarReais(menor.valor)}`;
+    } else if (telaMenor) {
+        telaMenor.textContent = '—';
+    }
+
+    quantidade.textContent = gastos.length;
+    media.textContent = formatarReais(calcularMedia(totalGeral, gastos.length));
+
+    mostrarTotaisPorCategoria();
+
+    const valorRestante = 50 - totalGeral;
+    restante.textContent = montarMensagemDoOrcamento(valorRestante);
+
+    if (valorRestante < 0) {
+        restante.classList.add("estourado");
+    } else {
+        restante.classList.remove("estourado");
+    }
+
+    if (totalGeral > 50) {
+        telaTotal.classList.add("estourado");
+    } else {
+        telaTotal.classList.remove("estourado");
+    }
+}
+
+function montarMensagemDoOrcamento(restante) {
+    if (restante >= 0) {
+        return formatarReais(restante) + ' disponíveis';
+    }
+    return 'Passou ' + formatarReais(-restante) + ' do orçamento';
+}
+
 /* -----------------------------------------------------------
-   Atualizar estado do botão
+   Atualizar estado do botão Adicionar
    ----------------------------------------------------------- */
 function atualizarEstadoDoBotao() {
     botaoAdicionar.disabled = !podeAdicionar(campoDescricao.value, campoValor.value);
@@ -126,7 +244,7 @@ mostrarTotaisPorCategoria();
 atualizarEstadoDoBotao();
 
 /* -----------------------------------------------------------
-   Escutar e alterar
+   Escutar Ações (Submit e Botão Desfazer)
    ----------------------------------------------------------- */
 formulario.addEventListener('submit', function (evento) {
     evento.preventDefault();
@@ -142,63 +260,24 @@ formulario.addEventListener('submit', function (evento) {
 
     erro.textContent = '';
 
-    // Passo 1: Cria o objeto do gasto
     const gasto = {
         descricao: descricao,
         valor: valor,
         categoria: nomeCategoria
     };
 
-    // Passo 1: Adiciona o objeto na lista 'gastos' usando .push()
     gastos.push(gasto);
+    atualizarInterface();
 
-    // Atualiza o total da categoria correspondente
-    const categoriaEncontrada = categorias.find(c => c.nome === nomeCategoria);
-    if (categoriaEncontrada) {
-        categoriaEncontrada.total += gasto.valor;
-    }
-
-    // Atualiza o total geral
-    total += gasto.valor;
-
-    // Atualiza o maior gasto, se aplicável
-    if (gasto.valor > maiorGasto.valor) {
-        maiorGasto = gasto;
-    }
-
-    // Passo 2: Monta o histórico como uma lista numerada (<ol>) a partir de 'gastos'
-    let htmlHistorico = '<ol>';
-    gastos.forEach(item => {
-        htmlHistorico += `<li>${montarTextoDoGasto(item)}</li>`;
-    });
-    htmlHistorico += '</ol>';
-    historico.innerHTML = htmlHistorico;
-
-    // Atualiza o DOM
-    telaTotal.textContent = formatarReais(total);
-    telaMaior.textContent = montarTextoDoGasto(maiorGasto);
-    
-    // Passo 3: A quantidade de gastos vem direto do tamanho da lista (gastos.length)
-    quantidade.textContent = gastos.length;
-    media.textContent = formatarReais(calcularMedia(total, gastos.length));
-
-    mostrarTotaisPorCategoria();
-
-    // Lógica do orçamento da semana (R$ 50,00)
-    const valorRestante = 50 - total;
-    restante.textContent = montarMensagemDoOrcamento(valorRestante);
-
-    if (valorRestante < 0) {
-        restante.classList.add("estourado");
-    }
-
-    if (total > 50) {
-        telaTotal.classList.add("estourado");
-    }
-
-    // Limpa os campos do formulário
     campoDescricao.value = '';
     campoValor.value = '';
-
     atualizarEstadoDoBotao();
+});
+
+// Botão de desfazer fora do submit, operando perfeitamente na lista 'gastos'
+botaoDesfazer.addEventListener('click', function () {
+    if (gastos.length > 0) {
+        gastos.pop();
+        atualizarInterface();
+    }
 });

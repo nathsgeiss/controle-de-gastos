@@ -110,6 +110,7 @@ button {
     font-size: 16px;
     font-weight: bold;
     cursor: pointer;
+    margin-bottom: 12px;
 }
 
 button:hover {
@@ -251,4 +252,73 @@ button:disabled:hover {
 .tabela-categorias td:last-child,
 .tabela-categorias th:last-child {
     text-align: right;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+caption {
+    padding-bottom: 8px;
+    font-weight: bold;
+    text-align: left;
+}
+
+th,
+td {
+    padding: 8px;
+    border-bottom: 1px solid #e4e9f2;
+    text-align: left;
+}
+
+/* O cabeçalho com um fundo diferente */
+thead th {
+    background-color: #e4e9f2;
+}
+
+/* Linhas zebradas, só no corpo da tabela */
+tbody tr:nth-child(even) {
+    background-color: #f7f9fc;
+}
+
+tfoot th,
+tfoot td {
+    border-top: 2px solid #222b45;
+    font-weight: bold;
+}
+/* Garante que a tabela do histórico preencha o cartão bonitinho */
+.historico table {
+    width: 100%;
+    margin-top: 10px;
+    border-collapse: collapse;
+}
+
+.historico caption {
+    font-weight: bold;
+    text-align: left;
+    margin-bottom: 6px;
+    color: #1f3a2e;
+}
+
+.historico th,
+.historico td {
+    padding: 8px;
+    border-bottom: 1px solid #e4e9f2;
+    text-align: left;
+    font-size: 14px;
+}
+
+.historico thead th {
+    background-color: #e4e9f2;
+    color: #26302a;
+}
+
+.historico tbody tr:nth-child(even) {
+    background-color: #f7f9fc;
+}
+
+.historico tfoot td {
+    border-top: 2px solid #1f3a2e;
+    font-weight: bold;
 }
